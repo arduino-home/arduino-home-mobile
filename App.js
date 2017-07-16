@@ -1,23 +1,43 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { View, StatusBar } from 'react-native';
+import { StackNavigator } from 'react-navigation';
+import Styles from './components/Styles';
+import DeviceList from './components/DeviceList';
+import DeviceForm from './components/DeviceForm';
+import ServiceList from './components/ServiceList';
+import ServiceView from './components/ServiceView';
+
+const MainNavigationOptions = {
+    headerStyle: Styles.nav_header,
+    headerTitleStyle: Styles.nav_header_title,
+};
+
+const MainNavigation = StackNavigator({
+    Home: {
+        screen: DeviceList,
+        navigationOptions: MainNavigationOptions,
+    },
+    EditDevice: {
+        screen: DeviceForm,
+        navigationOptions: MainNavigationOptions,
+    },
+    DeviceHome: {
+        screen: ServiceList,
+        navigationOptions: MainNavigationOptions,
+    },
+    ServiceView: {
+        screen: ServiceView,
+        navigationOptions: MainNavigationOptions,
+    },
+});
 
 export default class App extends React.Component {
-  render() {
-    return (
-      <View style={styles.container}>
-        <Text>Open up App.js to start working on your app!</Text>
-        <Text>Changes you make will automatically reload.</Text>
-        <Text>Shake your phone to open the developer menu.</Text>
-      </View>
-    );
-  }
+    render() {
+        return(
+            <View style={Styles.main}>
+                <StatusBar hidden={true}/>
+                <MainNavigation/>
+            </View>
+        );
+    }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
